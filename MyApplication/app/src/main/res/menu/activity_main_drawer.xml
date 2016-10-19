@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Ventas" />
+
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Clientes" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Articulos" />
+            <item
+                android:id="@+id/nav_conf"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Configuración" />
+            <item
+                android:id="@+id/salir"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Salir" />
+        </menu>
+    </item>
+
+</menu>

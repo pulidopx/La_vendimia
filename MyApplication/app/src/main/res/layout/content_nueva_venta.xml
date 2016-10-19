@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_nueva_venta"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.jose.ventasmuebles.Nueva_venta"
+    tools:showIn="@layout/activity_nueva_venta">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fecha"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="18sp"
+                    android:gravity="right" />
+
+                <TextView
+                    android:text="Folio Venta: 000"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fol"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:gravity="right"
+                    android:layout_marginRight="10dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.42">
+
+                    <TextView
+                        android:text="Cliente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/textView10"
+                        android:layout_weight="0.22"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/background_light"
+                        android:background="@color/colorPrimary" />
+
+                    <AutoCompleteTextView
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/cliente"
+                        android:hint="  Buscar cliente..." />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rfc"
+                        android:layout_weight="0.29"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.07"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_height="50dp">
+
+                        <TextView
+                            android:text="Articulo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/textView11"
+                            android:layout_weight="0.09"
+                            android:gravity="center"
+                            android:textSize="16sp"
+                            android:textColor="@android:color/background_light"
+                            android:background="@color/colorPrimary" />
+
+                        <AutoCompleteTextView
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:ems="10"
+                            android:id="@+id/articulo"
+                            android:hint="  Buscar Articulo..."
+                            android:layout_width="250dp" />
+
+                        <ImageButton
+                            android:layout_width="35dp"
+                            android:layout_height="87dp"
+                            app:srcCompat="@android:drawable/ic_input_add"
+                            android:id="@+id/bot"
+                            android:layout_marginLeft="16dp"
+                            android:layout_weight="0.13"
+                            android:onClick="add" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:background="@color/cardview_shadow_start_color">
+
+                        <TextView
+                            android:text="Descripción Articulo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView12"
+                            android:layout_weight="1"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:text="Modelo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView15"
+                            android:layout_weight="1"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:text="Cantidad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView13"
+                            android:layout_weight="1"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:text="Precio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView16"
+                            android:layout_weight="1"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:text="Importe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView17"
+                            android:layout_weight="1"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:text="Borrar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView6"
+                            android:layout_weight="1"
+                            android:gravity="center" />
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvAlertas2"
+                        android:layout_width="match_parent"
+                        android:layout_height="147dp"
+                        android:layout_below="@+id/linearLayout4" />
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="7dp"
+                        android:id="@+id/enganche"
+                        android:visibility="invisible">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+                            <TextView
+                                android:text="Enganche: 000"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/enganches"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="Bonificación Enganche: 000"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/bonificacion"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="Total: 000"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/total"
+                                android:layout_weight="1" />
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@android:drawable/stat_notify_sync_noanim"
+                                android:id="@+id/imageButton"
+                                android:layout_weight="1"
+                                android:background="@color/cardview_dark_background"
+                                android:onClick="Reload" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="100dp"
+                            android:id="@+id/next">
+
+                            <Button
+                                android:text="Cancelar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/button5"
+                                android:layout_weight="1"
+                                android:onClick="Cancelar" />
+
+                            <Button
+                                android:text="Siguiente"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/button4"
+                                android:layout_weight="1"
+                                android:onClick="next" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:visibility="invisible"
+                        android:id="@+id/abono">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/cardview_shadow_start_color"
+                            android:gravity="center">
+
+                            <TextView
+                                android:text="ABONOS MENSUALES"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tsdsd"
+                                android:layout_weight="1"
+                                android:gravity="center" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:visibility="visible"
+                            android:id="@+id/l3">
+
+                            <TextView
+                                android:text="3 ABONO DE"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/a3"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="1000"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/b3"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="TOTAL A PAGAR $100"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/c3"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="SE AHORRA $1000"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/d3"
+                                android:layout_weight="1" />
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/e3"
+                                android:layout_weight="1"
+                                android:onClick="radioClick" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:visibility="visible"
+                            android:id="@+id/l6">
+
+                            <TextView
+                                android:text="6 ABONO DE"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/a6"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="1000"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/b6"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="TOTAL A PAGAR $100"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/c6"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="SE AHORRA $1000"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/d6"
+                                android:layout_weight="1" />
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/e6"
+                                android:layout_weight="1"
+                                android:onClick="radioClick" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:visibility="visible"
+                            android:id="@+id/l9">
+
+                            <TextView
+                                android:text="9 ABONO DE"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/a9"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="1000"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/b9"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="TOTAL A PAGAR $100"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/c9"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="SE AHORRA $1000"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/d9"
+                                android:layout_weight="1" />
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/e9"
+                                android:layout_weight="1"
+                                android:onClick="radioClick" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:visibility="visible"
+                            android:id="@+id/l12">
+
+                            <TextView
+                                android:text="12 ABONO DE"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/a12"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="1000"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/b12"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="TOTAL A PAGAR $100"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/c12"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="SE AHORRA $1000"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/d12"
+                                android:layout_weight="1" />
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/e12"
+                                android:layout_weight="1"
+                                android:onClick="radioClick" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/end"
+                            android:visibility="invisible">
+
+                            <Button
+                                android:text="Cancelar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/button6"
+                                android:layout_weight="1"
+                                android:onClick="Cancelar" />
+
+                            <Button
+                                android:text="Guardar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/save"
+                                android:layout_weight="1"
+                                android:onClick="Success"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
