@@ -58,7 +58,7 @@ public class editar_usuario extends AppCompatActivity implements AsyncResponse{
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (rfc.getText().toString().matches("([a-zA-Z0-9]{17,})+[0-9]{1,}") && s.length() > 0) {
+                if (rfc.getText().toString().matches("([a-zA-Z0-9]{9,})+[0-9]{1,}") && s.length() > 0) {
                     //  passval.setTextColor(Color.GREEN);
                     // Toast.makeText(getApplicationContext(),"E-mail válido",Toast.LENGTH_LONG).show();
                     saved.setVisibility(View.VISIBLE);
@@ -130,7 +130,7 @@ public class editar_usuario extends AppCompatActivity implements AsyncResponse{
             postData.put("key",clave);
             Log.d("msg",postData.toString());
             httpost.setPostData(postData);
-            httpost.execute("http://clementepruebas.000webhostapp.com/ventas/editar_cliente.php");
+            httpost.execute(g.getURL()+"/ventas/editar_cliente.php");
         }
 
     }
@@ -149,13 +149,14 @@ public class editar_usuario extends AppCompatActivity implements AsyncResponse{
 
     @Override
     public void processFinish(String s) {
-       Log.d("msg",s);
-       if(s.equals("1")){
+        String st[] = s.split("-");
+       Log.d("msg",st[0]);
+       if(st[0].equals("1")){
             Toast.makeText(this, "Bien Hecho. Se han editado los datos del cliente", Toast.LENGTH_SHORT).show();
            finish();
-        }else if(s.equals("2")){
+        }else if(st[0].equals("2")){
             Toast.makeText(this, "Error inesperado", Toast.LENGTH_SHORT).show();
-        }else if(s.equals("")){
+        }else if(st[0].equals("")){
             Toast.makeText(this, "Sin respuesta del servidor", Toast.LENGTH_SHORT).show();
         }
 

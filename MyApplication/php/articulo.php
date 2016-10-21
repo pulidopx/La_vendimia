@@ -2,7 +2,7 @@
 require("../conexion2.php");
 
 
-$ventas = "SELECT descripcion,precio,existencia,clave_articulo FROM articulos ORDER BY id DESC";
+$ventas = "SELECT descripcion,precio,existencia,clave_articulo,modelo FROM articulos ORDER BY id DESC";
 $r = mysqli_query($con,$ventas);
 while($row = mysqli_fetch_array($r)){
 $array[] = $row;

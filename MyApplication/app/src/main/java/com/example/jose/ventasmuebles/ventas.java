@@ -79,7 +79,7 @@ public String JSONdata;
         HashMap postData = new HashMap();
         PostResponseAsyncTask httpost = new PostResponseAsyncTask(getActivity(), this);
         httpost.setPostData(postData);
-        httpost.execute("http://clementepruebas.000webhostapp.com/ventas/ventas_activas.php");
+        httpost.execute(g.getURL()+"/ventas/ventas_activas.php");
     }
 
 

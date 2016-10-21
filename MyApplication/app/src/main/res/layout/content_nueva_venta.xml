@@ -135,6 +135,14 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical" >
 
+                    <TextView
+                        android:text="existencia: 0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/existencia"
+                        android:layout_weight="1"
+                        android:visibility="invisible" />
+
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
@@ -503,7 +511,7 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/save"
                                 android:layout_weight="1"
-                                android:onClick="Success"
+                                android:onClick="GuardarArticulo"
                                 android:layout_alignParentTop="true"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true" />

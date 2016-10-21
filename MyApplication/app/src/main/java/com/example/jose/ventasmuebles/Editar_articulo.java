@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,10 +17,14 @@ import android.widget.Toast;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Random;
 
-public class Registro_articulo extends AppCompatActivity implements AsyncResponse {
+public class Editar_articulo extends AppCompatActivity implements AsyncResponse {
+
     Random generator;
     String clave;
     TextView clav,fech;
@@ -29,7 +34,7 @@ public class Registro_articulo extends AppCompatActivity implements AsyncRespons
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_articulo);
+        setContentView(R.layout.activity_editar_articulo);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,7 +49,21 @@ public class Registro_articulo extends AppCompatActivity implements AsyncRespons
         fech = (TextView) findViewById(R.id.fecha);
         fech.setText("Fecha: "+fecha[0] + "/" + fecha[1] + "/" + fecha[2]);
 
-        rand();
+        String data = getIntent().getStringExtra("data");
+        try {
+            JSONObject date = new JSONObject(data);
+            existencia.setText(date.getString("existencia").toString());
+            des.setText(date.getString("descripcion"));
+            precio.setText(date.getString("precio"));
+            modelo.setText(date.getString("modelo"));
+            Log.d("json", date.toString());
+            clav.setText("clave:"+date.getString("clave_articulo"));
+            clave = date.getString("clave_articulo");
+        } catch (JSONException e) {
+            e.getMessage();
+        }
+
+
     }
 
 
@@ -68,7 +87,7 @@ public class Registro_articulo extends AppCompatActivity implements AsyncRespons
         alert.show();
     }
 
-    public void registrarArticulo(View v){
+    public void GuardarArticulo(View v){
         String desc = des.getText().toString();
         String pre = precio.getText().toString();
         String mod = modelo.getText().toString();
@@ -89,7 +108,7 @@ public class Registro_articulo extends AppCompatActivity implements AsyncRespons
             postData.put("exis",exis);
             postData.put("key",clave);
             httpost.setPostData(postData);
-            httpost.execute(g.getURL()+"/ventas/registrar_articulo.php");
+            httpost.execute("http://single-lemonjuice.netau.net/ventas/editar_articulo.php");
         }
 
     }
@@ -116,13 +135,12 @@ public class Registro_articulo extends AppCompatActivity implements AsyncRespons
     @Override
     public void processFinish(String s) {
         String st[] = s.split("-");
-       if(st[0].equals("1")){
-            Toast.makeText(this, "Bien Hecho. El Articulo ha sido registrado correctamente", Toast.LENGTH_SHORT).show();
-           finish();
-        }else if(st[0].equals("2")){
-            Toast.makeText(this, "Error inesperado", Toast.LENGTH_SHORT).show();
-        }else if(st[0].equals("")){
+        Log.d("msg",st[0]);
+        if(st[0].equals("")){
             Toast.makeText(this, "Sin respuesta del servidor", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Bien Hecho. Se han editado los datos del cliente", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
     }

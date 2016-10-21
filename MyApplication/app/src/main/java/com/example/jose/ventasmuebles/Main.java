@@ -1,6 +1,9 @@
 package com.example.jose.ventasmuebles;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -16,14 +19,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 public class Main extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,AsyncResponse {
 
 //aqui utilizo la transacción de los fragments
     private Fragment ventas,clientes,articulos,conf;
@@ -37,9 +44,6 @@ public class Main extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-       String[] fecha =g.getFecha().split("-");
-       fech = (TextView) findViewById(R.id.fecha);
-        fech.setText("Fecha: "+fecha[0] + "/" + fecha[1] + "/" + fecha[2]);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -57,7 +61,8 @@ public class Main extends AppCompatActivity
             g.setTasaF(date.getString("tasa"));
             g.setEnganche(date.getString("enganche"));
             g.setPlazoMaximo(date.getString("plazoM"));
-            Log.d("json", date.toString());
+            Log.d("Confi", date.toString());
+
 
         } catch (JSONException e) {
             e.getMessage();
@@ -66,6 +71,25 @@ public class Main extends AppCompatActivity
 
     }
 
+    public void response(){
+        HashMap postData = new HashMap();
+        PostResponseAsyncTask httpost = new PostResponseAsyncTask(this, this);
+        httpost.setPostData(postData);
+        httpost.execute("http://single-lemonjuice.netau.net/ventas/clientes.php");
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                response();
+            }
+        },3000);
+    }
 
     @Override
     public void onBackPressed() {
@@ -138,4 +162,35 @@ public class Main extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-}
+
+    @Override
+    public void processFinish(String s) {
+        Log.d("mod",s);
+        try{
+            JSONObject clar= new JSONObject(s);
+            String cl = clar.getString("cliente");
+            String ar = clar.getString("articulo");
+            String fh = clar.getString("fecha");
+            g.setClientes(cl);
+            g.setArticulos(ar);
+            g.setFecha(fh);
+            g.setTagC(0);
+            g.setTag2(0);
+            Log.d("clar",cl+" : "+ar);
+            String[] fecha =g.getFecha().split("-");
+            fech = (TextView) findViewById(R.id.fecha);
+            fech.setText("Fecha: "+fecha[0] + "/" + fecha[1] + "/" + fecha[2]);
+        }catch(JSONException e){Log.d("json",e.getMessage());}
+    }
+
+    }
+
+
+
+
+
+
+
+
+
+

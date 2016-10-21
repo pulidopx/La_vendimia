@@ -88,6 +88,7 @@ public class cardViewAlertasAdapter2 extends RecyclerView.Adapter <cardViewAlert
                   double result = imp * cn;
                   holder.importe.setText(""+result);
                   g.setCantidad(result);
+                  g.setExistencia(cn+"");
               }catch(Exception e){
                   Log.d("msg",e.getMessage());
                holder.importe.setText("");

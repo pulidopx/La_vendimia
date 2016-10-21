@@ -44,14 +44,14 @@ public class Nueva_venta extends AppCompatActivity implements AsyncResponse {
     List<alertaInfo> result;
     RecyclerView recList;
     TextView rfc,enganche,bonificacion,total,fol,fech;
-    TextView a3,b3,c3,d3,a6,b6,c6,d6,a9,b9,c9,d9,a12,b12,c12,d12;
+    TextView a3,b3,c3,d3,a6,b6,c6,d6,a9,b9,c9,d9,a12,b12,c12,d12,exis;
     RadioButton e3,e6,e9,e12;
     LinearLayout eng,abono,end,next,l3,l6,l9,l12;
     Double importes,plazosMeses,meses3,meses6,meses9,meses12;
     DecimalFormat decimal;
     Random generator;
     //generar folios
-    String folio,nombre;
+    String folio,nombre,articuloss;
     Button save;
 
     public void txt(){
@@ -103,6 +103,8 @@ public class Nueva_venta extends AppCompatActivity implements AsyncResponse {
         bonificacion = (TextView) findViewById(R.id.bonificacion);
         total = (TextView) findViewById(R.id.total);
         save = (Button) findViewById(R.id.save);
+        exis = (TextView) findViewById(R.id.existencia);
+
         save.setEnabled(false);
         String[] fecha =g.getFecha().split("-");
         fech = (TextView) findViewById(R.id.fecha);
@@ -116,7 +118,7 @@ public class Nueva_venta extends AppCompatActivity implements AsyncResponse {
          JSONArray arr = new JSONArray(clientes.toString());
          for(int i=0;i<=arr.length();i++){
              JSONObject ob = arr.getJSONObject(i);
-           arrays.add(ob.getString("nombre")+"-"+ob.getString("rfc"));
+             arrays.add(ob.getString("nombre")+" "+ob.getString("apellido_p")+" "+ob.getString("apellido_m")+"-"+ob.getString("rfc"));
 
              //final String rfcs = ob.getString("rfc");
              final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrays);
@@ -155,6 +157,7 @@ public class Nueva_venta extends AppCompatActivity implements AsyncResponse {
 
         }catch(JSONException w){Log.d("json",w.getMessage());}
         rand();
+        g.setExistencia("1");
     }
 
 
@@ -169,6 +172,7 @@ public class Nueva_venta extends AppCompatActivity implements AsyncResponse {
                 JSONObject jsonobject = new JSONObject(json);
                 alertaInfo ci = new alertaInfo();
                 ci.descripcion = jsonobject.getString("descripcion");
+                g.setArticulo(jsonobject.getString("descripcion"));
                 ci.modelo = jsonobject.getString("modelo");
                 ci.cantidad = 1;
                 ci.precio = jsonobject.getString("precio");
@@ -177,6 +181,7 @@ public class Nueva_venta extends AppCompatActivity implements AsyncResponse {
                 ci.importe = decimal.format(importe) + "";
                 importes = importe;
                 g.setCantidad(importes);
+                exis.setText("Producto en existencia: "+jsonobject.getString("existencia"));
             result.add(ci);
 
         }catch(JSONException e){Log.d("json",e.getMessage());}
@@ -203,7 +208,7 @@ public void add(View v){
         postData.put("descripcion", ar);
         PostResponseAsyncTask httpost = new PostResponseAsyncTask(this, this);
         httpost.setPostData(postData);
-        httpost.execute("http://clementepruebas.000webhostapp.com/ventas/venta_articulo.php");
+        httpost.execute(g.getURL()+"/ventas/venta_articulo.php");
     }
 
 }
@@ -220,25 +225,32 @@ public void add(View v){
         }
 
 
-
-    public void Success(View v){
-        String fl = folio.toString();
-        String nm = nombre.toString();
-        String pm = plazosMeses.toString();
-        String ar = articulo.getText().toString();
-        if(fl.equals("") || nm.equals("") || pm.equals("") || ar.equals("")) {
+    public void GuardarArticulo(View v){
+           String fl = folio.toString();
+           String nm = rfc.getText().toString();
+           String pm = plazosMeses.toString();
+           String ar = articulo.getText().toString();
+           String ex = g.getExistencia();
+           String art = g.getArticulo();
+        if(art.equals("") || nm.equals("") || pm.equals("") || ar.equals("") || ex.equals("")){
 
         }else{
             HashMap postData = new HashMap();
+            PostResponseAsyncTask httpost = new PostResponseAsyncTask(this, this);
             postData.put("folio", fl);
             postData.put("nombre", nm);
             postData.put("total", pm);
             postData.put("descripcion", ar);
-            PostResponseAsyncTask httpost = new PostResponseAsyncTask(this, this);
+            postData.put("exis",ex);
+            postData.put("artc",art);
             httpost.setPostData(postData);
-            httpost.execute("http://clementepruebas.000webhostapp.com/ventas/venta_registrada.php");
+            httpost.execute("http://single-lemonjuice.netau.net/ventas/venta_registrada.php");
         }
+
     }
+
+
+
 
     public void formulas(){
 
@@ -286,20 +298,6 @@ public void add(View v){
         meses12 = precioCont * mes112;
         c12.setText("TOTAL A PAGAR $"+decimal.format(meses12));
 
-        //importe Abono
-
-        //3 meses
-        double imA3 = totals / 3;
-        b3.setText("$"+decimal.format(imA3));
-        //6 meses
-        double imA6 = totals / 6;
-        b6.setText("$"+decimal.format(imA6));
-        //9 meses
-        double imA9= totals / 9;
-        b9.setText("$"+decimal.format(imA9));
-        //12 meses
-        double imA12 = totals / 12;
-        b12.setText("$"+decimal.format(imA12));
 
         //importe Ahorro de la columna - SE AHORRA -
         //a 3 meses
@@ -314,6 +312,21 @@ public void add(View v){
         //a 12 meses
         double imAh12 = totals - meses12;
         d12.setText("SE AHORRA $"+decimal.format(imAh12));
+
+        //importe Abono
+
+        //3 meses
+        double imA3 = meses3 / 3;
+        b3.setText("$"+decimal.format(imA3));
+        //6 meses
+        double imA6 = meses6 / 6;
+        b6.setText("$"+decimal.format(imA6));
+        //9 meses
+        double imA9= meses9 / 9;
+        b9.setText("$"+decimal.format(imA9));
+        //12 meses
+        double imA12 = meses12 / 12;
+        b12.setText("$"+decimal.format(imA12));
 
     }
 
@@ -370,6 +383,8 @@ public void add(View v){
     public void Cancelar(View v){
         abono.setVisibility(View.INVISIBLE);
         eng.setVisibility(View.INVISIBLE);
+        exis.setVisibility(View.INVISIBLE);
+        putTable("");
     }
 
 
@@ -378,6 +393,20 @@ public void add(View v){
     public void onBackPressed()
     {
        alert();
+    }
+
+
+    public void putTable(String s){
+        recList = (RecyclerView) findViewById(R.id.rvAlertas2);
+        recList.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this.getApplication());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recList.setLayoutManager(llm);
+        cardViewAlertasAdapter2 ca = new cardViewAlertasAdapter2(createList(100,s));
+        recList.setAdapter(ca);
+        RecyclerView.ItemAnimator animator = recList.getItemAnimator();
+        animator.setAddDuration(1000);
+        animator.setRemoveDuration(500);
     }
 
 
@@ -404,31 +433,25 @@ public void add(View v){
 
     @Override
     public void processFinish(String s) {
-        if(s.equals("0")){
+       String st[] = s.split("-");
+        if(st[0].equals("4")){
+            Toast.makeText(this, "No hay producto mas producto, existencia total del producto es de "+exis.getText().toString(), Toast.LENGTH_LONG).show();
+        }else  if(st[0].equals("0")){
             Toast.makeText(this, "Articulo sin existencia", Toast.LENGTH_SHORT).show();
-        }else if(s.equals("")){
+        }else if(st[0].equals("")){
             Toast.makeText(this, "Sin respuesta del servidor", Toast.LENGTH_SHORT).show();
-        }else if(s.equals("1")){
+        }else if(st[0].equals("1")){
             Toast.makeText(this, "Bien Hecho, Tu venta ha sido registrada correctamente", Toast.LENGTH_LONG).show();
             finish();
-        }else if(s.equals("2")){
+        }else if(st[0].equals("2")){
             Toast.makeText(this, "Hubo un error y no se inserto correctamente", Toast.LENGTH_LONG).show();
-        }else if(s.equals("3")){
+        }else if(st[0].equals("3")){
             Toast.makeText(this, "error inesperado", Toast.LENGTH_LONG).show();
         }else{
-            recList = (RecyclerView) findViewById(R.id.rvAlertas2);
-            recList.setHasFixedSize(true);
-            LinearLayoutManager llm = new LinearLayoutManager(this.getApplication());
-            llm.setOrientation(LinearLayoutManager.VERTICAL);
-            recList.setLayoutManager(llm);
-            cardViewAlertasAdapter2 ca = new cardViewAlertasAdapter2(createList(100,s));
-            recList.setAdapter(ca);
-            RecyclerView.ItemAnimator animator = recList.getItemAnimator();
-            animator.setAddDuration(1000);
-            animator.setRemoveDuration(500);
+            putTable(s);
             eng.setVisibility(View.VISIBLE);
             next.setVisibility(View.VISIBLE);
-
+            exis.setVisibility(View.VISIBLE);
                 switch(g.getPlazoMaximo()){
 
                     case "3":

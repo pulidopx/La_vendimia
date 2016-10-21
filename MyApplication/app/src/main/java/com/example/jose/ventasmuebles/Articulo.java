@@ -1,7 +1,9 @@
 package com.example.jose.ventasmuebles;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -37,6 +39,7 @@ Globally g = Globally.getInstance();
     List<alertaInfo> result;
     View rootView;
     RecyclerView recList;
+    AsyncTaskRunner myTask;
 
     public static Articulo newInstance(){
         Articulo fragment = new Articulo();
@@ -65,7 +68,7 @@ Globally g = Globally.getInstance();
         HashMap postData = new HashMap();
         PostResponseAsyncTask httpost = new PostResponseAsyncTask(getActivity(), this);
         httpost.setPostData(postData);
-        httpost.execute("http://clementepruebas.000webhostapp.com/ventas/articulo.php");
+        httpost.execute(g.getURL()+"/ventas/articulo.php");
     }
 
     @Override
@@ -74,6 +77,11 @@ Globally g = Globally.getInstance();
         response();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        myTask.cancel(true);
+    }
 
     private List<alertaInfo> createList(int size, String json) {
         //result = new ArrayList<>();
@@ -86,6 +94,7 @@ Globally g = Globally.getInstance();
                 alertaInfo ci = new alertaInfo();
                 ci.clave_articulo = jsonobject.getString("clave_articulo");
                 ci.descripcionArt = jsonobject.getString("descripcion");
+                ci.JsonAr = jsonobject.toString();
                 result.add(ci);
             }
         }catch(JSONException e){
@@ -119,6 +128,89 @@ Globally g = Globally.getInstance();
         }else{
             //JSONdata = s;
             initializeRecyclerView(s);
+
+            myTask = new AsyncTaskRunner();
+            myTask.execute("0");
         }
     }
+
+    //Aqui inicia la tarea Asyncrona para extraer la dirección
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+
+        private String resp;
+        Handler handler = new Handler();
+
+        @Override
+        protected String doInBackground(String... params) {
+            // publishProgress("Sleeping..."); // Calls onProgressUpdate()
+            Log.d("task", "execute in back ground");
+            try {
+                // Do your long operations here and return the result
+                int time = Integer.parseInt(params[0]);
+                // Sleeping for given time period
+                Thread.sleep(0);
+                resp = "Slept for " + time + " milliseconds";
+                handler.postDelayed(r, 300);
+
+            } catch (InterruptedException e) {
+                Log.d("task", "error:" + e.getMessage());
+                resp = e.getMessage();
+            } catch (Exception e) {
+                Log.d("task", "errorE:" + e.getMessage());
+                resp = e.getMessage();
+            }
+            return resp;
+        }
+
+        final Runnable r = new Runnable() {
+            public void run() {
+                if(g.getTag2() == 1) {
+                    Intent edit = new Intent(getActivity(),Editar_articulo.class);
+                    edit.putExtra("data", g.getJsonArticulo());
+                    startActivity(edit);
+                    g.setTag2(0);
+                }
+                Log.d("task", "Task is running");
+                handler.postDelayed(this, 300);
+
+            }
+        };
+        /*
+         * (non-Javadoc)
+         *
+         * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+         */
+        @Override
+        protected void onPostExecute(String result) {
+            // execution of result of Long time consuming operation
+            Log.d("task", "execute on Post");
+
+        }
+        /*
+         * (non-Javadoc)
+         *
+         * @see android.os.AsyncTask#onPreExecute()
+         */
+        @Override
+        protected void onPreExecute() {
+            // Things to be done before execution of long running operation. For
+            // example showing ProgessDialog
+            Log.d("task", "execute on pre");
+        }
+        /*
+         * (non-Javadoc)
+         *
+         * @see android.os.AsyncTask#onProgressUpdate(Progress[])
+         */
+        @Override
+        protected void onProgressUpdate(String... text) {
+            Log.d("task", "execute on Update");
+            // Things to be done while execution of long running operation is in
+            // progress. For example updating ProgessDialog
+            // coor(g.getLat(),g.getLong());
+        }
+
+
+    }
+
 }

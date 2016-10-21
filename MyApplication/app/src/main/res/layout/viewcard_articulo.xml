@@ -29,7 +29,21 @@
                 android:textColor="@color/colorPrimary"
                 android:gravity="center" />
 
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:id="@+id/editar"
+                android:layout_weight="0.15"
+                android:background="@android:drawable/ic_menu_edit" />
+
         </LinearLayout>
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/hiden1"
+            android:visibility="invisible"
+            android:enabled="false" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

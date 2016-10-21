@@ -43,15 +43,15 @@ Globally g = Globally.getInstance();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abono_mensuales);
-        //g.setURL("192.168.0.3");
+        g.setURL("http://single-lemonjuice.netau.net");
         checkSession();
     }
 
     public void response(){
-        HashMap postData = new HashMap();
-        PostResponseAsyncTask httpost = new PostResponseAsyncTask(this, this);
-        httpost.setPostData(postData);
-        httpost.execute("http://clementepruebas.000webhostapp.com/ventas/clientes.php");
+
+        Intent main = new Intent(this,Main.class);
+        main.putExtra("data", jsonData.toString());
+        startActivity(main);
 
     }
 
@@ -66,6 +66,9 @@ Globally g = Globally.getInstance();
 
                 jsonData = new JSONObject(fileData());
                 Log.d("saved",jsonData.toString());
+                Intent main = new Intent(this,Main.class);
+                startActivity(main);
+
                 tag = 1;
                 response();
             }
@@ -119,7 +122,8 @@ Globally g = Globally.getInstance();
                 obj.put("plazoM", pMa);
                 Write(obj.toString());
                 SaveSharedPreference.setUserName(this, "ventas");
-                response();
+                Intent main = new Intent(this,Main.class);
+                startActivity(main);
             }catch(JSONException e){Log.d("json", e.getMessage());}
 
         }
@@ -193,29 +197,7 @@ Globally g = Globally.getInstance();
             Toast.makeText(this, "No hay respuesta del servidor", Toast.LENGTH_LONG).show();
         }else{
 
-            try{
 
-                JSONObject clar= new JSONObject(s);
-                String cl = clar.getString("cliente");
-                String ar = clar.getString("articulo");
-                String fh = clar.getString("fecha");
-                g.setClientes(cl);
-                g.setArticulos(ar);
-                g.setFecha(fh);
-                g.setTagC(0);
-                Log.d("clar",cl+" : "+ar);
-                    if(tag == 0) {
-                    Intent main = new Intent(this, Main.class);
-                    startActivity(main);
-                    finish();
-                    }else if(jsonData.toString() != null){
-                        Intent main = new Intent(this, Main.class);
-                        main.putExtra("data", jsonData.toString());
-                        startActivity(main);
-                        finish();
-
-                    }
-            }catch(JSONException e){Log.d("json",e.getMessage());}
 
         }
     }

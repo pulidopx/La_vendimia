@@ -1,6 +1,7 @@
 package com.example.jose.ventasmuebles;
 import android.annotation.SuppressLint;
 import android.media.Image;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.Editable;
@@ -43,19 +44,25 @@ public class cardViewAlertasAdapter4 extends RecyclerView.Adapter <cardViewAlert
         alertaInfo ci = listaAlertas.get(i);
         holder.descripcion.setText(ci.descripcionArt);
         holder.clave.setText(ci.clave_articulo);
-
-
+        holder.hiden.setText(ci.JsonAr);
         final int index=i;
-/*
-        holder.boton.setOnClickListener(  new View.OnClickListener() {
+        holder.botons.setOnClickListener(  new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Handler handler = new Handler();
+                holder.botons.setBackgroundResource(android.R.color.darker_gray);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        holder.botons.setBackgroundResource(android.R.drawable.ic_menu_edit);
+                    }
+                },300);
 
-
-
+                g.setJsonArticulo(holder.hiden.getText().toString());
+                Log.d("json",g.getJsonArticulo());
+                g.setTag2(1);
             }
         });
-*/
 
 
 
@@ -72,13 +79,15 @@ public class cardViewAlertasAdapter4 extends RecyclerView.Adapter <cardViewAlert
 
 
     public class cardViewAlertasHolder extends RecyclerView.ViewHolder{
-        protected TextView clave,descripcion;
+        protected TextView clave,descripcion,botons,hiden;
 
         public cardViewAlertasHolder(View v) {
             super(v);
             //Se cargan los componentes de la cardView
             clave =  (TextView)  v.findViewById(R.id.claveArt);
             descripcion =  (TextView)  v.findViewById(R.id.desc);
+            botons =  (TextView)  v.findViewById(R.id.editar);
+            hiden =  (TextView)  v.findViewById(R.id.hiden1);
 
 
 

@@ -13,9 +13,9 @@ $clave = $_POST["key"];
 		  $r = mysqli_query($con,$ventas);
 	
 		if($r){
-		echo  "1";
+		echo  "1-";
 		}else{
-		  echo "2";	
+		  echo "2-";	
 		}
 
 ?>

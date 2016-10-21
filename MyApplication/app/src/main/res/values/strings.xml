@@ -21,5 +21,6 @@
         <item>3</item>
     </string-array>
     <string name="title_activity_editar_usuario">Editar Usuario</string>
+    <string name="title_activity_editar_articulo">Editar_articulo</string>
 
 </resources>

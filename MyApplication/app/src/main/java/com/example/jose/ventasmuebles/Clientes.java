@@ -35,6 +35,7 @@ Globally g = Globally.getInstance();
     List<alertaInfo> result;
     View rootView;
     RecyclerView recList;
+    AsyncTaskRunner myTask;
     public static Clientes newInstance(){
         Clientes fragment = new Clientes();
         return fragment;
@@ -62,7 +63,7 @@ Globally g = Globally.getInstance();
         HashMap postData = new HashMap();
         PostResponseAsyncTask httpost = new PostResponseAsyncTask(getActivity(), this);
         httpost.setPostData(postData);
-        httpost.execute("http://clementepruebas.000webhostapp.com/ventas/registro_clientes.php");
+        httpost.execute(g.getURL()+"/ventas/registro_clientes.php");
 
     }
 
@@ -81,7 +82,7 @@ Globally g = Globally.getInstance();
                 ci.clave_cliente = jsonobject.getString("clave_cliente");
                 String nombre = jsonobject.getString("nombre")+" "
                 +jsonobject.getString("apellido_p")
-                        +jsonobject.getString("apellido_m");
+                        +" "+jsonobject.getString("apellido_m");
                 ci.nombre_cliente = nombre;
                 ci.JsonCl = jsonobject.toString();
                 result.add(ci);
@@ -112,6 +113,11 @@ Globally g = Globally.getInstance();
         response();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        myTask.cancel(true);
+    }
 
     @Override
     public void processFinish(String s) {
@@ -121,7 +127,7 @@ Globally g = Globally.getInstance();
         }else{
             //JSONdata = s;
             initializeRecyclerView(s);
-            AsyncTaskRunner myTask = new AsyncTaskRunner();
+            myTask = new AsyncTaskRunner();
             myTask.execute("0");
         }
 

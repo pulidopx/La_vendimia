@@ -7,9 +7,9 @@ package com.example.jose.ventasmuebles;
 public class Globally {
 
     private static Globally instance;
-    private static String clientes,articulos,url,tasaF,enganche,plazoMaximo,jsoncl,fecha;
+    private static String clientes,arts,articulos,exis,url,tasaF,enganche,plazoMaximo,jsoncl,jsonar,fecha;
     private static double cantidad;
-    private static int tc;
+    private static int tc,tc2;
 
 
     private Globally(){}
@@ -106,6 +106,17 @@ public class Globally {
     }
     //----------------------
 
+    public void setTag2(int id){
+        Globally.tc2 = id;
+    }
+
+    public int getTag2(){
+
+        return Globally.tc2;
+
+    }
+    //----------------------
+
     public void setJsonCliente(String id){
         Globally.jsoncl = id;
     }
@@ -117,6 +128,17 @@ public class Globally {
     }
     //----------------------
 
+    public void setJsonArticulo(String id){
+        Globally.jsonar = id;
+    }
+
+    public String getJsonArticulo(){
+
+        return Globally.jsonar;
+
+    }
+    //----------------------
+
     public void setFecha(String id){
         Globally.fecha = id;
     }
@@ -124,6 +146,30 @@ public class Globally {
     public String getFecha(){
 
         return Globally.fecha;
+
+    }
+
+    //----------------------
+
+    public void setExistencia(String id){
+        Globally.exis = id;
+    }
+
+    public String getExistencia(){
+
+        return Globally.exis;
+
+    }
+
+    //----------------------
+
+    public void setArticulo(String id){
+        Globally.arts = id;
+    }
+
+    public String getArticulo(){
+
+        return Globally.arts;
 
     }
 

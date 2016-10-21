@@ -11,7 +11,7 @@ public class alertaInfo {
  public String descripcion,modelo,precio,importe;
  public int cantidad;
  //Card3
- public String clave_cliente,nombre_cliente;
+ public String clave_cliente,nombre_cliente,JsonCl;
  //Card4
- public String clave_articulo,descripcionArt,JsonCl;
+ public String clave_articulo,descripcionArt,JsonAr;
 }

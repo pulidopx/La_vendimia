@@ -54,7 +54,7 @@ Random generator;
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (rfc.getText().toString().matches("([a-zA-Z0-9]{17,})+[0-9]{1,}") && s.length() > 0) {
+                if (rfc.getText().toString().matches("([a-zA-Z0-9]{9,})+[0-9]{1,}") && s.length() > 0) {
                     //  passval.setTextColor(Color.GREEN);
                     // Toast.makeText(getApplicationContext(),"E-mail válido",Toast.LENGTH_LONG).show();
                     saved.setVisibility(View.VISIBLE);
@@ -116,10 +116,12 @@ Random generator;
             postData.put("rfc",rf);
             postData.put("key",clave);
             httpost.setPostData(postData);
-            httpost.execute("http://clementepruebas.000webhostapp.com/ventas/registrar_cliente.php");
+            httpost.execute(g.getURL()+"/ventas/registrar_cliente.php");
         }
 
     }
+
+
 
     public void close(View v){
         alert();
@@ -144,16 +146,16 @@ Random generator;
 
     @Override
     public void processFinish(String s) {
-
-        if(s.equals("3")){
+        String st[] = s.split("-");
+        if(st[0].equals("3")){
             Toast.makeText(this, "El usuario ya se encuentra registrado", Toast.LENGTH_SHORT).show();
-        }else if(s.equals("1")){
+        }else if(st[0].equals("1")){
             nombre.setText("");
             Toast.makeText(this, "Bien Hecho. El cliente ha sido registrado correctamente", Toast.LENGTH_SHORT).show();
             finish();
-        }else if(s.equals("2")){
+        }else if(st[0].equals("2")){
             Toast.makeText(this, "Error inesperado", Toast.LENGTH_SHORT).show();
-        }else if(s.equals("")){
+        }else if(st[0].equals("")){
             Toast.makeText(this, "Sin respuesta del servidor", Toast.LENGTH_SHORT).show();
         }
 

@@ -11,7 +11,7 @@ $array[] = $row;
 }
 $js = json_encode($array);
 
-$artc = "SELECT descripcion,precio,existencia FROM articulos";
+$artc = "SELECT descripcion,precio,existencia,modelo,clave_articulo FROM articulos";
 $r2 = mysqli_query($con,$artc);
 
 $array2 = array();
@@ -20,7 +20,7 @@ $array2[] = $row2;
 }
 $js2 = json_encode($array2);
 
-echo "{\"cliente\":".$js.",\"articulo\":".$js2.",\"fecha\":".date("j-n-Y")."}";
+echo "{\"cliente\":".$js.",\"articulo\":".$js2.",\"fecha\":\"".date("j-n-Y")."\"}";
 
 
 

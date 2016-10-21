@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permissions.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +19,7 @@
             android:name=".Main"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Nueva_venta"
             android:label="@string/title_activity_nueva_venta"
@@ -48,6 +50,10 @@
             android:name=".editar_usuario"
             android:label="@string/title_activity_editar_usuario"
             android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Editar_articulo"
+            android:label="@string/title_activity_editar_articulo"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
